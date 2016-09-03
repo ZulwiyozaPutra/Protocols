@@ -18,4 +18,19 @@ struct Friend {
     }
 }
 
-let friend
+let friend = Friend(firstName: "Zulwiyoza", middleName: "mid" , lastName: "Putra")
+friend.fullName
+
+//Challenge
+
+protocol UserType {
+    var name: String { get }
+    var age: Int { get set }
+}
+
+struct Person: UserType {
+    let name: String
+    var age: Int
+}
+
+let somePerson = Person(name: "Zulwiyoza Putra", age: 21)
