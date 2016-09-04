@@ -178,38 +178,40 @@ let ingredients: [Blendable] = [strawberry, chocolateMilk]
 makeSmoothie(ingredients)
 
 
+/******************************************************/
 
 
-
-
-
-enum Level {
-    case good
-    case bad
+protocol RandomNumberGenerator {
+    func random() -> Double
 }
 
-enum Status {
-    case excellent
-    case okay
-    case bad
-}
-
-func opportunity(gpa: Double?, yokiQuality: Level) -> Status {
-    if gpa == nil {
-        switch yokiQuality {
-        case Level.good:
-            return Status.okay
-        case Level.bad:
-            return Status.bad
-        }
-    } else {
-        switch yokiQuality {
-        case Level.good:
-            return Status.excellent
-        case Level.bad:
-            return Status.bad
-        }
+class LinearCongruentialGenerator: RandomNumberGenerator {
+    var lastRandom = 42.0
+    let m = 129968.0
+    let a = 3877.0
+    let c = 29573.0
+    
+    func random() -> Double {
+        lastRandom = ((lastRandom * a + c) % m)
+        return lastRandom/m
     }
 }
 
-opportunity(3.2, yokiQuality: Level.good)
+class Dice {
+    let sides: Int
+    let generator: RandomNumberGenerator
+    
+    init(sides: Int, generator: RandomNumberGenerator) {
+        self.sides = sides
+        self.generator = generator
+    }
+    
+    func roll() -> Int {
+        return Int(generator.random() * Double(sides)) + 1
+    }
+}
+
+var d6 = Dice(sides: 6, generator: LinearCongruentialGenerator())
+d6.roll()
+d6.roll()
+d6.roll()
