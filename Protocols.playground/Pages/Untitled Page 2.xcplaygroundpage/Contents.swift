@@ -24,3 +24,20 @@ let user = User(name: "Zulwiyoza", age: 21, address: "411 O'Farrell")
 
 print(user.description())
 print(user.prettyDescription())
+
+/************************************/
+
+//CHALLENGE
+
+protocol AnimalType {
+    var numberOfLegs: Int { get }
+}
+
+protocol PetType: AnimalType {
+    var cuddlyName: String { get }
+}
+
+struct Dog: PetType {
+    var numberOfLegs: Int
+    var cuddlyName: String
+}
